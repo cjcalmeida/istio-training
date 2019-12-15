@@ -1,5 +1,3 @@
-security:
-  oauth2:
-    client:
-      client-id: application
-      client-secret: application-secret
+auth:
+  private-key: default
+
