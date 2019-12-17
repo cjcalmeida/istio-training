@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -25,9 +27,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @SpringBootApplication
-public class App {
+public class AppAuth {
     public static void main( String[] args ) {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(AppAuth.class, args);
     }
 
     @Configuration
@@ -66,7 +68,31 @@ public class App {
                     .redirectUris("https://app.getpostman.com/oauth2/callback")
                     .secret(encoder.encode("application-secret"))
                     .scopes("any")
-                    .accessTokenValiditySeconds(3_600);
+                    .accessTokenValiditySeconds(3_600)
+                    .and()
+
+                    .withClient("modulo")
+                    .authorizedGrantTypes("client_credentials")
+                    .redirectUris("https://app.getpostman.com/oauth2/callback")
+                    .secret(encoder.encode("secret"))
+                    .scopes("any")
+                    .accessTokenValiditySeconds(30)
+                    .and()
+
+                    .withClient("materia")
+                    .authorizedGrantTypes("client_credentials")
+                    .redirectUris("https://app.getpostman.com/oauth2/callback")
+                    .secret(encoder.encode("secret"))
+                    .scopes("any")
+                    .accessTokenValiditySeconds(30)
+                    .and()
+
+                    .withClient("curso")
+                    .authorizedGrantTypes("client_credentials")
+                    .redirectUris("https://app.getpostman.com/oauth2/callback")
+                    .secret(encoder.encode("secret"))
+                    .scopes("any")
+                    .accessTokenValiditySeconds(30);
         }
 
         @Bean

@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    password:
+    username: sa
+    url: jdbc:h2:mem:testDb;INIT=CREATE SCHEMA IF NOT EXISTS modulo
+  h2:
+    console:
+      enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+          jwk-set-uri: http://localhost:8080/oauth/token_key
+          jws-algorithm: HS256
+
+server:
+  port: 8083
+trace: true
